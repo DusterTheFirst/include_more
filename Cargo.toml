@@ -1,0 +1,9 @@
+[package]
+name = "include_more"
+version = "0.1.0"
+authors = ["Zachary Kohnen <14093962+DusterTheFirst@users.noreply.github.com>"]
+edition = "2018"
+
+[dependencies]
+include_more_proc = { path = "./proc" }
+eager = "0.1.0"
