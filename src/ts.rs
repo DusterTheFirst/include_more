@@ -2,7 +2,10 @@ use std::{path::PathBuf, sync::Arc};
 
 use proc_macro2::TokenStream;
 use quote::quote;
-use swc::{Compiler, config::{Config, Options}};
+use swc::{
+    config::{Config, Options},
+    Compiler,
+};
 use swc_common::{
     errors::{ColorConfig, Handler},
     SourceMap,
@@ -35,7 +38,7 @@ pub fn include(file: LitStr) -> Result<TokenStream> {
         Some(cm.clone()),
     ));
 
-    let compiler = Compiler::new(cm.clone(), handler.clone());
+    let compiler = Compiler::new(cm.clone(), handler);
 
     let fm = cm.load_file(&input_file_path).map_err(|e| {
         Error::new(

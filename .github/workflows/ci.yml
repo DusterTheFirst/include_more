@@ -1,0 +1,55 @@
+on: [push, pull_request]
+
+name: CI
+
+jobs:
+  doc:
+    name: Doc tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install rust
+        uses: actions-rs/toolchain@v1
+      - uses: actions-rs/cargo@v1
+        with:
+          command: doc
+          args: --release --all-features
+      - run: echo "<meta http-equiv=\"refresh\" content=\"0; url=https://dusterthefirst.github.io/include_more/include_more\" />" > target/doc/index.html
+      - name: Deploy to GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: docs
+          build_dir: target/doc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install minimal stable with clippy
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+
+      - uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features
+
+  rustfmt:
+    name: rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install minimal stable with clippy
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+
+      - name: rustfmt
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
