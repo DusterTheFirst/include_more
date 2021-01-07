@@ -4,19 +4,25 @@ name: CI
 
 jobs:
   doc:
-    name: Doc tests
+    name: Build Documentation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
       - name: Install rust
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+
+      - uses: Swatinem/rust-cache@v1
+
+      - uses: actions/checkout@v2
+
       - uses: actions-rs/cargo@v1
         with:
           command: doc
           args: --release --all-features
+
       - run: echo "<meta http-equiv=\"refresh\" content=\"0; url=https://dusterthefirst.github.io/include_more/include_more\" />" > target/doc/index.html
+      
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2
         with:
@@ -29,7 +35,6 @@ jobs:
     name: Clippy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
       - name: Install minimal stable with clippy
         uses: actions-rs/toolchain@v1
         with:
@@ -37,22 +42,29 @@ jobs:
           toolchain: stable
           components: clippy
 
+      - uses: Swatinem/rust-cache@v1
+
+      - uses: actions/checkout@v2
+
       - uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features
 
   rustfmt:
-    name: rustfmt
+    name: Rust Format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
       - name: Install minimal stable with clippy
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           components: rustfmt
+
+      - uses: Swatinem/rust-cache@v1
+
+      - uses: actions/checkout@v2
 
       - name: rustfmt
         uses: actions-rs/cargo@v1
