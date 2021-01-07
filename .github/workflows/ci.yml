@@ -10,6 +10,8 @@ jobs:
       - uses: actions/checkout@master
       - name: Install rust
         uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
       - uses: actions-rs/cargo@v1
         with:
           command: doc
@@ -32,6 +34,8 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
+          toolchain: stable
+          components: clippy
 
       - uses: actions-rs/clippy-check@v1
         with:
@@ -47,6 +51,8 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
+          toolchain: stable
+          components: rustfmt
 
       - name: rustfmt
         uses: actions-rs/cargo@v1
