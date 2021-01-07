@@ -1,7 +1,7 @@
 use include_more::include_sass;
 
 fn main() {
-    let css = include_sass!("sass.scss");
+    let css = include_sass!("examples/scss.scss");
 
-    dbg!(css);
+    println!("{}", css);
 }

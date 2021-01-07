@@ -23,7 +23,7 @@ $grid-color: #aaa;
     flex-direction: row;
     justify-content: center;
     border-bottom: 2px solid $grid-color;
-    background: repeating-linear-gradient(0deg, transparent, transparent 19.5%, fadeout($grid-color, 30%) 20%);
+    background: repeating-linear-gradient(0deg, transparent, transparent 19.5%, fade-out($grid-color, 0.30) 20%);
 
     .bar {
         background-color: $bar-color;
@@ -53,7 +53,7 @@ $grid-color: #aaa;
         flex-direction: column;
         border-bottom: none;
         border-left: 2px solid $grid-color;
-        background: repeating-linear-gradient(90deg, transparent, transparent 19.5%, fadeout($grid-color, 30%) 20%);
+        background: repeating-linear-gradient(90deg, transparent, transparent 19.5%, fade-out($grid-color, .30) 20%);
 
         .bar {
             height: $bar-size;
@@ -61,6 +61,8 @@ $grid-color: #aaa;
             align-self: flex-start;
             margin: auto 0 auto 0;
             border-radius: 0 $bar-rounded $bar-rounded 0;
+
+            transition: all 1s;
 
             &::after {
                 top: initial;
