@@ -19,7 +19,7 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: doc
-          args: --release --all-features
+          args: --release --all-features --no-deps
 
       - run: echo "<meta http-equiv=\"refresh\" content=\"0; url=https://dusterthefirst.github.io/include_more/include_more\" />" > target/doc/index.html
       
