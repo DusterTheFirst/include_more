@@ -6,6 +6,8 @@ jobs:
   doc:
     name: Build Documentation
     runs-on: ubuntu-latest
+    needs: clippy
+    if: github.event_name == "push"
     steps:
       - name: Install rust
         uses: actions-rs/toolchain@v1
